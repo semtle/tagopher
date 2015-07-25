@@ -1,8 +1,8 @@
 package main
 
 import (
-	"github.com/imdario/tagopher"
 	"github.com/codegangsta/cli"
+	"github.com/imdario/tagopher"
 )
 
 func initAction(c *cli.Context) {

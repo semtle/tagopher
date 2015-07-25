@@ -2,7 +2,6 @@ package main
 
 import (
 	"github.com/codegangsta/cli"
-	"github.com/imdario/tagopher"
 	"os"
 )
 
@@ -40,9 +39,16 @@ func main() {
 			known = true
 			break
 		}
+		for _, alias := range command.Aliases {
+			if alias == os.Args[1] {
+				known = true
+				break
+			}
+		}
 	}
 	if !known {
-		os.Args = append([]string{tagopher.TAG}, os.Args...)
+		tmp := []string{os.Args[0], tagCommand.Name}
+		os.Args = append(tmp, os.Args[1:]...)
 	}
 	app.Run(os.Args)
 }
