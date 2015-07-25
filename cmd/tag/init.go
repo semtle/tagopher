@@ -1,10 +1,13 @@
 package main
 
 import (
+	"github.com/imdario/tagopher"
 	"github.com/codegangsta/cli"
 )
 
 func initAction(c *cli.Context) {
-	// TODO create hidden .tagopher directory
-	// TODO create database
+	err := tagopher.Init()
+	if err != nil {
+		panic(err)
+	}
 }

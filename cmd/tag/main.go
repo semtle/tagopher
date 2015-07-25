@@ -2,6 +2,7 @@ package main
 
 import (
 	"github.com/codegangsta/cli"
+	"github.com/imdario/tagopher"
 	"os"
 )
 
@@ -32,6 +33,16 @@ func main() {
 		initCommand,
 		tagCommand,
 		listCommand,
+	}
+	known := false
+	for _, command := range app.Commands {
+		if command.Name == os.Args[1] {
+			known = true
+			break
+		}
+	}
+	if !known {
+		os.Args = append([]string{tagopher.TAG}, os.Args...)
 	}
 	app.Run(os.Args)
 }
