@@ -7,6 +7,7 @@ import (
 	"github.com/imdario/tagopher"
 	"github.com/imdario/termtable"
 	"os"
+	"strings"
 	"time"
 )
 
@@ -21,8 +22,12 @@ func asTermtableRow(file tagopher.File) (row []string) {
 	row = append(row, fmt.Sprintf("%s", file.Mode()))
 	row = append(row, humanize.Bytes(uint64(file.Size())))
 	row = append(row, file.ModTime().Format(time.Stamp))
-	row = append(row, file.Name())
-	row = append(row, file.TagsLine())
+	row = append(row, file.String())
+	tags := strings.Join(file.Tags(), ", ")
+	if tags == "" {
+		tags = "-"
+	}
+	row = append(row, tags)
 	return
 }
 

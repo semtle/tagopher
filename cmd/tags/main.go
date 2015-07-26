@@ -1,20 +1,36 @@
 package main
 
 import (
+	"fmt"
 	"github.com/codegangsta/cli"
+	"github.com/imdario/tagopher"
 	"os"
 )
 
 var (
 	initCommand = cli.Command{
 		Name:   "init",
-		Usage:  "create an empty Tagopher repository",
+		Usage:  fmt.Sprintf("create an empty %s repository", tagopher.TAG_NAME),
 		Action: initAction,
 	}
 	tagCommand = cli.Command{
 		Name:   "tag",
-		Usage:  "add, remove or replace tags attached to given files",
+		Usage:  "add, remove or replace tags attached to given files (flags can be used multiple times or once with comma-separated tags)",
 		Action: tagAction,
+		Flags: []cli.Flag{
+			cli.StringSliceFlag{
+				Name: "add, a",
+				Value: &cli.StringSlice{},
+			},
+			cli.StringSliceFlag{
+				Name: "remove, r",
+				Value: &cli.StringSlice{},
+			},
+			cli.StringSliceFlag{
+				Name: "rename, e",
+				Value: &cli.StringSlice{},
+			},
+		},
 	}
 	listCommand = cli.Command{
 		Name:    "list",
